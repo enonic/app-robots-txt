@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <config/>
+    <config>
+      <input name="robotstxt" type="TextArea">
+          <label>Robots.txt</label>
+          <occurences minimum="0" maximum="1"/>
+      </input>
+    </config>
+    <mappings>
+        <mapping controller="/services/robotstxt/robotstxt.js" order="51">
+            <pattern>/robots.txt</pattern>
+        </mapping>
+    </mappings>
 </site>
