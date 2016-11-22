@@ -10,7 +10,7 @@ Disallow:</default>
       </input>
     </config>
     <mappings>
-        <mapping controller="/services/robotstxt/robotstxt.js" order="51">
+        <mapping controller="/services/robotstxt/robotstxt.js" order="10">
             <pattern>/robots.txt</pattern>
         </mapping>
     </mappings>
