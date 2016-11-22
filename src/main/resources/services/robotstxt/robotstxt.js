@@ -2,7 +2,6 @@ var libs = {
     portal: require('/lib/xp/portal')
 };
 
-
 function handleGet(req) {
 
     var siteConfig = libs.portal.getSiteConfig();
@@ -12,5 +11,3 @@ function handleGet(req) {
     };
 }
 exports.get = handleGet;
-
-
