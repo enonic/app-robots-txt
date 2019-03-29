@@ -22,16 +22,3 @@ repositories {
     jcenter()
     xp.enonicRepo()
 }
-
-publishing {
-    publications {
-        mavenJava( MavenPublication ) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url 'http://repo.enonic.net/artifactory/public'
-        }
-    }
-}
