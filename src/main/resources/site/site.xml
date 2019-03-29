@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-    <config>
+    <form>
       <input name="robotstxt" type="TextArea">
           <label>Robots.txt content</label>
           <occurences minimum="0" maximum="1"/>
@@ -8,7 +8,7 @@
 			 <default>User-agent: *
 Disallow:</default>
       </input>
-    </config>
+    </form>
     <mappings>
         <mapping controller="/services/robotstxt/robotstxt.js" order="10">
             <pattern>/robots.txt</pattern>
