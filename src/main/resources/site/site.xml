@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-    <config>
+    <form>
       <input name="robotstxt" type="TextArea">
-          <label>Robots.txt content</label>
-          <occurences minimum="0" maximum="1"/>
+      <label>Robots.txt content</label>
+      <occurences minimum="0" maximum="1"/>
 			 <help-text>Robots.txt follows a standard format, search Google for more information on how to use it.</help-text>
 			 <default>User-agent: *
 Disallow:</default>
       </input>
-    </config>
+    </form>
     <mappings>
         <mapping controller="/services/robotstxt/robotstxt.js" order="10">
             <pattern>/robots.txt</pattern>
