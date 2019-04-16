@@ -14,9 +14,14 @@ To build the source manually, just download this repo (or use the [XP Toolbox "i
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.1.0 | 6.7.0 |
 | 1.0.0 | 6.7.0 |
 
 ## Changelog
+
+### Version 1.1.0
+
+* Compatibility with XP 7
 
 ### Version 1.0.0
 

@@ -7,7 +7,7 @@ function handleGet(req) {
     var siteConfig = libs.portal.getSiteConfig();
     return {
         contentType: 'text/plain',
-        body: siteConfig.robotstxt,
+        body: siteConfig.robotstxt
     };
 }
 exports.get = handleGet;

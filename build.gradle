@@ -7,7 +7,7 @@ app {
     name = project.appName
     displayName = 'Robots.txt'
     vendorName = 'Enonic AS'
-    vendorUrl = 'http://enonic.com'
+    vendorUrl = 'https://enonic.com'
     systemVersion="${xpVersion}"
 }
 
@@ -19,6 +19,5 @@ dependencies {
 
 repositories {
     mavenLocal()
-    jcenter()
     xp.enonicRepo()
 }
