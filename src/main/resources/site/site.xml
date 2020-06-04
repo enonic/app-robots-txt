@@ -11,7 +11,7 @@ Disallow:</default>
     </form>
     <mappings>
         <mapping controller="/services/robotstxt/robotstxt.js" order="10">
-            <pattern>/robots.txt</pattern>
+            <pattern>/robots\.txt</pattern>
         </mapping>
     </mappings>
 </site>
