@@ -13,12 +13,13 @@ app {
 }
 
 dependencies {
-    compile "com.enonic.xp:core-api:${xpVersion}"
-    compile "com.enonic.xp:portal-api:${xpVersion}"
+    include "com.enonic.xp:core-api:${xpVersion}"
+    include "com.enonic.xp:portal-api:${xpVersion}"
     include "com.enonic.xp:lib-portal:${xpVersion}"
 }
 
 repositories {
     mavenLocal()
+    mavenCentral()
     xp.enonicRepo()
 }
