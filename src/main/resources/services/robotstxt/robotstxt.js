@@ -6,7 +6,7 @@ function handleGet(req) {
 
     const siteConfig = libs.portal.getSiteConfig();
 
-    if (req.getHeader('accept').indexOf('application/json') > -1) {
+    if (req.getHeader('accept') && req.getHeader('accept').indexOf('application/json') > -1) {
         return {
             body: JSON.stringify(configToData(siteConfig)),
             contentType: 'application/json'
@@ -86,31 +86,28 @@ function configToData(config) {
             rules: []
         }
     }
+
+    let data;
     if (config.groups && config.groups.length) {
         var groups = [];
         config.groups.forEach(function (group) {
             groups.push(getGroupData(group));
         });
 
-        const data = {
+        data = {
             rules: groups,
         }
-
-        if (config.sitemap) {
-            data.sitemap = config.sitemap;
-        }
-
-        return data;
     } else {
-        const data = {
+        data = {
             rules: getGroupData(config.groups)
         }
-        if (config.sitemap) {
-            data.sitemap = config.sitemap;
-        }
-
-        return data;
     }
+
+    if (config.sitemap) {
+        data.sitemap = config.sitemap;
+    }
+
+    return data;
 }
 
 function getGroupData(group) {
