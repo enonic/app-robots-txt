@@ -6,9 +6,7 @@ function handleGet(req) {
 
     const siteConfig = libs.portal.getSiteConfig();
 
-    const accept = req.headers.accept || req.headers.Accept;
-
-    if (accept && accept.indexOf('application/json') > -1) {
+    if (req.getHeader('accept').indexOf('application/json') > -1) {
         return {
             body: JSON.stringify(configToData(siteConfig)),
             contentType: 'application/json'
