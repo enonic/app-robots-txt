@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
     <form>
-      <input name="robotstxt" type="TextArea">
-      <label>Robots.txt content</label>
-      <occurences minimum="0" maximum="1"/>
-			 <help-text>Robots.txt follows a standard format, search Google for more information on how to use it.</help-text>
-			 <default>User-agent: *
-Disallow:</default>
-      </input>
+        <!-- <input name="robotstxt" type="TextArea">
+            <label>Robots.txt content</label>
+            <occurences minimum="0" maximum="1" />
+            <help-text>Robots.txt follows a standard format, search Google for more information on
+                how to use it.</help-text>
+            <default>User-agent: *Disallow:</default>
+        </input> -->
+        <item-set name="groups">
+            <label>Robots group</label>
+            <occurrences minimum="0" maximum="0" />
+            <items>
+                <input name="userAgent">
+                    <label>User-agent</label>
+                    <occurrences minimum="0" maximum="0" />
+                </input>
+                <input name="allow" type="TextLine">
+                    <label>Allow</label>
+                    <occurrences minimum="0" maximum="0" />
+                </input>
+                <input name="disallow" type="TextLine">
+                    <label>Disallow</label>
+                    <occurrences minimum="0" maximum="0" />
+                </input>
+            </items>
+        </item-set>
+        <input name="sitemap" type="TextLine">
+            <label>Sitemap url</label>
+            <occurences minimum="0" maximum="0" />
+        </input>
     </form>
     <mappings>
         <mapping controller="/services/robotstxt/robotstxt.js" order="10">
