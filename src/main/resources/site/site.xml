@@ -12,8 +12,9 @@
             <label>Robots group</label>
             <occurrences minimum="0" maximum="0" />
             <items>
-                <input name="userAgent">
+                <input name="userAgent" type="TextLine">
                     <label>User-agent</label>
+                    <default>*</default>
                     <occurrences minimum="0" maximum="0" />
                 </input>
                 <input name="allow" type="TextLine">
@@ -23,6 +24,7 @@
                 <input name="disallow" type="TextLine">
                     <label>Disallow</label>
                     <occurrences minimum="0" maximum="0" />
+                    <default> </default>
                 </input>
             </items>
         </item-set>
