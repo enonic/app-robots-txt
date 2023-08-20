@@ -3,7 +3,6 @@ const libs = {
 };
 
 function handleGet(req) {
-
     const siteConfig = libs.portal.getSiteConfig();
 
     if (req.getHeader('accept') && req.getHeader('accept').indexOf('application/json') > -1) {
@@ -43,32 +42,29 @@ function dataToPlainRobotTxt(data) {
     return body;
 }
 
-function writeGroupTxt(group) {
-    var body = "";
-
-    if (Array.isArray(group.userAgent)) {
-        group.userAgent.forEach(function (userAgent) {
-            body += `User-agent: ${userAgent}\n`;
-        });
+function forceArray(data) {
+    if (Array.isArray(data)) {
+        return data;
     } else {
-        body += `User-agent: ${group.userAgent}\n`;
+        return [data];
     }
+}
 
-    if (Array.isArray(group.allow)) {
-        group.allow.forEach(function (allow) {
-            body += `Allow: ${allow}\n`;
-        });
-    } else {
-        body += `Allow: ${group.allow}\n`;
-    }
+function writeGroupTxt(groupRules) {
+    let body = "";
+    const group = getGroupData(groupRules);
 
-    if (Array.isArray(group.disallow)) {
-        group.disallow.forEach(function (disallow) {
-            body += `Disallow: ${disallow}\n`;
-        });
-    } else {
-        body += `Disallow: ${group.disallow}\n`;
-    }
+    forceArray(group.userAgent || "*").forEach(function (userAgent) {
+        body += `User-agent: ${userAgent}\n`;
+    });
+
+    forceArray(group.allow).forEach(function (allow) {
+        body += `Allow: ${allow}\n`;
+    });
+
+    forceArray(group.disallow).forEach(function (disallow) {
+        body += `Disallow: ${disallow}\n`;
+    });
 
     return body;
 }
@@ -88,7 +84,7 @@ function configToData(config) {
     }
 
     let data;
-    if (config.groups && config.groups.length) {
+    if (config.groups && Array.isArray(config.groups)) {
         var groups = [];
         config.groups.forEach(function (group) {
             groups.push(getGroupData(group));
@@ -99,7 +95,10 @@ function configToData(config) {
         }
     } else {
         data = {
-            rules: getGroupData(config.groups)
+            rules: getGroupData(config.groups || {
+                userAgent: "*",
+                disallow: [""],
+            })
         }
     }
 
@@ -112,8 +111,8 @@ function configToData(config) {
 
 function getGroupData(group) {
     return {
-        userAgent: group.userAgent || [],
-        allow: group.allow || [],
-        disallow: group.disallow || []
+        userAgent: group && group.userAgent || [],
+        allow: group && group.allow || [],
+        disallow: group && group.disallow || []
     }
 }
