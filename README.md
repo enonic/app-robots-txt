@@ -26,7 +26,7 @@ User-agent: *
 Disallow:
 ```
 
-Migrate this to the respective fields in the new configuration
+Migrate this to the respective fields in the new form-based configuration
 
 Example:
 
