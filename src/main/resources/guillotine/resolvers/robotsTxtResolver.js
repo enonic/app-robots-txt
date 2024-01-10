@@ -5,9 +5,9 @@ function getSearchContext(env) {
     const currentContext = contextLib.get();
 
     return {
-        project: env.localContext.__project || currentContext.repository.replace('com.enonic.cms.', ''),
-        branch: env.localContext.__branch || currentContext.branch,
-        siteKey: env.localContext.__siteKey,
+        project: env.localContext.project || currentContext.repository.replace('com.enonic.cms.', ''),
+        branch: env.localContext.branch || currentContext.branch,
+        siteKey: env.localContext.siteKey,
     };
 }
 

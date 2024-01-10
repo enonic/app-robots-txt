@@ -8,11 +8,11 @@ exports.extensions = function (graphQL) {
             RobotsTxt: types.createRobotsTextType(graphQL),
         },
         creationCallbacks: {
-            Query: creationCallbacks.RootQueryType_CreationCallback(graphQL),
+            HeadlessCms: creationCallbacks.HeadlessCmsType_CreationCallback(graphQL),
         },
         resolvers: {
-            Query: {
-                robotstxt: resolvers.RootQueryType_robotstxt_Resolver(graphQL),
+            HeadlessCms: {
+                robotstxt: resolvers.HeadlessCmsType_robotstxt_Resolver,
             },
             RobotsTxt: {
                 text: resolvers.RobotsTxtType_text_Resolver,
