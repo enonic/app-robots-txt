@@ -1,21 +1,14 @@
-const contextLib = require('/lib/xp/context');
 const robotsLib = require('/lib/robots');
-
-function getSearchContext(req) {
-    const currentContext = contextLib.get();
-
-    return {
-        project: req.params.project || currentContext.repository.replace('com.enonic.cms.', ''),
-        branch: req.params.branch || currentContext.branch,
-        siteKey: req.params.siteKey,
-    };
-}
+const utilLib = require('/lib/util');
 
 exports.get = function (req) {
-    const searchContext = getSearchContext(req);
-    const body = robotsLib.getRobotsTxt(searchContext);
+    const sourceConfig = robotsLib.resolveSourceConfig(req.params.project, req.params.branch, req.params.siteKey);
     return {
         contentType: 'text/plain',
-        body: body,
+        body: robotsLib.resolve(getAppConfig(sourceConfig) || {}), // TODO check if app is installed, now it will return default config
     }
 };
+
+function getAppConfig(config) {
+    return utilLib.forceArray(config).filter(cfg => cfg && cfg.applicationKey === 'com.enonic.app.robotstxt')[0].config;
+}
