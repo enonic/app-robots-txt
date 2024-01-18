@@ -1,18 +1,55 @@
-const contextLib = require('/lib/xp/context');
-const utilLib = require('/lib/util');
 const contentLib = require('/lib/xp/content');
 const projectLib = require('/lib/xp/project');
+const ctxLib = require('./ctx');
+const utilLib = require('/lib/util');
 
 const DEFAULT_RULE = {
     userAgent: ['*'],
     disallow: [''],
 };
 
+exports.resolve = function (config) {
+    if (Object.keys(config).length) {
+        if (config.groups) {
+            const rules = createRules(config);
+            return writePlainRobotsTxt(rules);
+        } else if (config.robotstxt) {
+            return config.robotstxt;
+        }
+    }
+
+    return createDefaultRobotsTxt();
+}
+
+exports.resolveSourceConfig = function (project, branch, siteKey) {
+    return ctxLib.executeInContext(project, branch, function () {
+        if (siteKey === undefined) {
+            const projectEntity = projectLib.get({
+                id: project,
+            });
+
+            if (projectEntity) {
+                return projectEntity.siteConfig;
+            }
+        } else {
+            const site = contentLib.getSite({
+                key: siteKey,
+            });
+
+            if (site) {
+                return site.data.siteConfig;
+            }
+        }
+
+        return {};
+    });
+};
+
 function createRule(group) {
     return {
-        userAgent: group.userAgent && utilLib.data.forceArray(group.userAgent) || [],
-        allow: group.allow && utilLib.data.forceArray(group.allow) || [],
-        disallow: group.disallow && utilLib.data.forceArray(group.disallow) || []
+        userAgent: group.userAgent && utilLib.forceArray(group.userAgent) || [],
+        allow: group.allow && utilLib.forceArray(group.allow) || [],
+        disallow: group.disallow && utilLib.forceArray(group.disallow) || []
     };
 }
 
@@ -51,7 +88,7 @@ function createRules(config) {
     };
 
     if (config.groups) {
-        utilLib.data.forceArray(config.groups).forEach(group => {
+        utilLib.forceArray(config.groups).forEach(group => {
             if (group) {
                 result.rules.push(createRule(group));
             }
@@ -68,52 +105,6 @@ function createRules(config) {
     return result;
 }
 
-function resolveRobotsTxtConfig(searchContext) {
-    const project = searchContext.project;
-    const branch = searchContext.branch;
-    const siteKey = searchContext.siteKey;
-
-    let siteConfigs = null;
-    if (siteKey) {
-        const site = contextLib.run({
-            branch: branch,
-            repository: `com.enonic.cms.${project}`,
-        }, function () {
-            return contentLib.getSite({
-                key: siteKey,
-            });
-        });
-
-        if (site) {
-            siteConfigs = site.data.siteConfig && utilLib.data.forceArray(site.data.siteConfig) || [];
-        }
-    } else {
-        const projectEntity = projectLib.get({
-            id: project,
-        });
-        if (projectEntity && projectEntity.siteConfig) {
-            siteConfigs = utilLib.data.forceArray(projectEntity.siteConfig);
-        }
-    }
-
-    const siteConfig = (siteConfigs || []).filter(config => config.applicationKey === 'com.enonic.app.robotstxt')[0];
-    return siteConfig && siteConfig.config || {};
-}
-
 function createDefaultRobotsTxt() {
     return writePlainRobotsTxt(createRules({groups: []}));
 }
-
-exports.getRobotsTxt = function (searchContext) {
-    const config = resolveRobotsTxtConfig(searchContext);
-    if (Object.keys(config).length) {
-        if (config.groups) {
-            const rules = createRules(config);
-            return writePlainRobotsTxt(rules);
-        } else if (config.robotstxt) {
-            return config.robotstxt;
-        }
-    }
-
-    return createDefaultRobotsTxt();
-};
