@@ -1,12 +1,15 @@
 const contentLib = require('/lib/xp/content');
 const projectLib = require('/lib/xp/project');
 const ctxLib = require('./ctx');
-const utilLib = require('/lib/util');
 
 const DEFAULT_RULE = {
     userAgent: ['*'],
     disallow: [''],
 };
+
+function _forceArray(data) {
+	return (Array.isArray(data) ? data : [data]);
+}
 
 exports.resolve = function (config) {
     if (Object.keys(config).length) {
@@ -47,9 +50,9 @@ exports.resolveSourceConfig = function (project, branch, siteKey) {
 
 function createRule(group) {
     return {
-        userAgent: group.userAgent && utilLib.forceArray(group.userAgent) || [],
-        allow: group.allow && utilLib.forceArray(group.allow) || [],
-        disallow: group.disallow && utilLib.forceArray(group.disallow) || []
+        userAgent: group.userAgent && _forceArray(group.userAgent) || [],
+        allow: group.allow && _forceArray(group.allow) || [],
+        disallow: group.disallow && _forceArray(group.disallow) || []
     };
 }
 
@@ -88,7 +91,7 @@ function createRules(config) {
     };
 
     if (config.groups) {
-        utilLib.forceArray(config.groups).forEach(group => {
+        _forceArray(config.groups).forEach(group => {
             if (group) {
                 result.rules.push(createRule(group));
             }
