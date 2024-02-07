@@ -15,7 +15,6 @@ app {
 dependencies {
     include "com.enonic.xp:core-api:${xpVersion}"
     include "com.enonic.xp:portal-api:${xpVersion}"
-    include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.xp:lib-content:${xpVersion}"
     include "com.enonic.xp:lib-context:${xpVersion}"
     include "com.enonic.xp:lib-project:${xpVersion}"
