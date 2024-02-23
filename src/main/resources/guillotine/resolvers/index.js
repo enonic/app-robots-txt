@@ -2,7 +2,15 @@ const robotsLib = require('/lib/robots');
 const utilLib = require('/lib/util');
 
 exports.RobotsTxtType_text_Resolver = function (env) {
-    return robotsLib.resolve(env.source._config);
+    return robotsLib.resolveText(env.source._config);
+};
+
+exports.RobotsTxtType_rules_Resolver = function (env) {
+    return robotsLib.resolveRules(env.source._config);
+};
+
+exports.RobotsTxtType_sitemap_Resolver = function (env) {
+    return robotsLib.resolveSitemap(env.source._config);
 };
 
 exports.HeadlessCmsType_robotstxt_Resolver = function (env) {
