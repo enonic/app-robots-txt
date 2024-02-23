@@ -5,7 +5,6 @@ const utilLib = require('/lib/util');
 
 const DEFAULT_RULE = {
     userAgent: ['*'],
-    disallow: [''],
 };
 
 exports.resolveRules = function (config) {
@@ -17,16 +16,8 @@ exports.resolveSitemap = function (config) {
 }
 
 exports.resolveText = function (config) {
-    if (Object.keys(config).length) {
-        if (config.groups) {
-            const rules = createRules(config);
-            return writePlainRobotsTxt(rules);
-        } else if (config.robotstxt) {
-            return config.robotstxt;
-        }
-    }
-
-    return createDefaultRobotsTxt();
+    const rules = createRules(config);
+    return writePlainRobotsTxt(rules);
 }
 
 exports.resolveSourceConfig = function (project, branch, siteKey) {
@@ -55,7 +46,7 @@ exports.resolveSourceConfig = function (project, branch, siteKey) {
 
 function createRule(group) {
     return {
-        userAgent: utilLib.forceArray(group.userAgent),
+        userAgent: utilLib.forceArray(group.userAgent) || DEFAULT_RULE.userAgent,
         allow: utilLib.forceArray(group.allow),
         disallow: utilLib.forceArray(group.disallow)
     };
@@ -64,15 +55,15 @@ function createRule(group) {
 function writeRule(rule) {
     let result = '';
 
-    (rule.userAgent || ['*']).forEach(function (userAgent) {
+    utilLib.forceArray(rule.userAgent).forEach(function (userAgent) {
         result += `User-agent: ${userAgent}\n`;
     });
 
-    (rule.allow || []).forEach(function (allow) {
+    utilLib.forceArray(rule.allow).forEach(function (allow) {
         result += `Allow: ${allow}\n`;
     });
 
-    (rule.disallow || ['']).forEach(function (disallow) {
+    utilLib.forceArray(rule.disallow).forEach(function (disallow) {
         result += `Disallow: ${disallow}\n`;
     });
 
@@ -109,8 +100,4 @@ function createRules(config) {
     }
 
     return result;
-}
-
-function createDefaultRobotsTxt() {
-    return writePlainRobotsTxt(createRules({groups: []}));
 }
