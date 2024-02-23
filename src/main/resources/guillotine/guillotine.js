@@ -6,6 +6,7 @@ exports.extensions = function (graphQL) {
     return {
         types: {
             RobotsTxt: types.createRobotsTextType(graphQL),
+            RobotsRule: types.createRobotsRuleType(graphQL),
         },
         creationCallbacks: {
             HeadlessCms: creationCallbacks.HeadlessCmsType_CreationCallback(graphQL),
@@ -16,6 +17,8 @@ exports.extensions = function (graphQL) {
             },
             RobotsTxt: {
                 text: resolvers.RobotsTxtType_text_Resolver,
+                rules: resolvers.RobotsTxtType_rules_Resolver,
+                sitemap: resolvers.RobotsTxtType_sitemap_Resolver,
             }
         },
     }

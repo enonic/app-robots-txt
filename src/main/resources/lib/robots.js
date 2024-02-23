@@ -8,7 +8,15 @@ const DEFAULT_RULE = {
     disallow: [''],
 };
 
-exports.resolve = function (config) {
+exports.resolveRules = function (config) {
+    return createRules(config).rules;
+}
+
+exports.resolveSitemap = function (config) {
+    return config.sitemap;
+}
+
+exports.resolveText = function (config) {
     if (Object.keys(config).length) {
         if (config.groups) {
             const rules = createRules(config);
@@ -47,9 +55,9 @@ exports.resolveSourceConfig = function (project, branch, siteKey) {
 
 function createRule(group) {
     return {
-        userAgent: group.userAgent && utilLib.forceArray(group.userAgent) || [],
-        allow: group.allow && utilLib.forceArray(group.allow) || [],
-        disallow: group.disallow && utilLib.forceArray(group.disallow) || []
+        userAgent: utilLib.forceArray(group.userAgent),
+        allow: utilLib.forceArray(group.allow),
+        disallow: utilLib.forceArray(group.disallow)
     };
 }
 
@@ -87,15 +95,13 @@ function createRules(config) {
         rules: [],
     };
 
-    if (config.groups) {
-        utilLib.forceArray(config.groups).forEach(group => {
-            if (group) {
-                result.rules.push(createRule(group));
-            }
-        });
-        if (config.sitemap) {
-            result.sitemap = config.sitemap;
+    utilLib.forceArray(config.groups).forEach(group => {
+        if (group) {
+            result.rules.push(createRule(group));
         }
+    });
+    if (config.sitemap) {
+        result.sitemap = config.sitemap;
     }
 
     if (result.rules.length === 0) {
