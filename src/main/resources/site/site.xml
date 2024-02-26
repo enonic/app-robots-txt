@@ -34,7 +34,7 @@
         </input>
     </form>
     <mappings>
-        <mapping controller="/services/robotstxt/robotstxt.js" order="10">
+        <mapping controller="/lib/robotstxt.js" order="12">
             <pattern>/robots\.txt</pattern>
         </mapping>
     </mappings>
