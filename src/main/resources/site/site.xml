@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
     <form>
-        <!-- <input name="robotstxt" type="TextArea">
-            <label>Robots.txt content</label>
-            <occurences minimum="0" maximum="1" />
-            <help-text>Robots.txt follows a standard format, search Google for more information on
-                how to use it.</help-text>
-            <default>User-agent: *Disallow:</default>
-        </input> -->
         <item-set name="groups">
             <label>Robots group</label>
             <occurrences minimum="0" maximum="0" />
