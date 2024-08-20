@@ -12,7 +12,8 @@ exports.resolveRules = function (config) {
 }
 
 exports.resolveSitemap = function (config) {
-    return config.sitemap;
+    const sm = config.sitemap;
+    return sm instanceof Array ? sm : ((sm && sm.length) ? [sm] : []);
 }
 
 exports.resolveText = function (config) {

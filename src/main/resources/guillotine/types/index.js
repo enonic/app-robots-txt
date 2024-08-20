@@ -9,7 +9,7 @@ exports.createRobotsTextType = function (graphQL) {
                 type: graphQL.list(graphQL.reference('RobotsRule')),
             },
             sitemap: {
-                type: graphQL.GraphQLString,
+                type: graphQL.list(graphQL.GraphQLString),
             },
         }
     };
