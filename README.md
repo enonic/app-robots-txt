@@ -41,6 +41,10 @@ query {
 
 ## Upgrade notes
 
+### 3.x to 4.x
+
+Starting from 4.0, it has become possible to specify more than one sitemap in the app config (for example, for multilingual sites), so `sitemap` has changed from a string to an array of strings.
+
 ### 2.x to 3.x
 
 Service `_/service/com.enonic.app.robotstxt/robotstxt` has been removed in favor of the graphql access for headless usage.
