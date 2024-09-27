@@ -11,10 +11,12 @@ exports.resolveRules = function (config) {
     return createRules(config).rules;
 }
 
-exports.resolveSitemap = function (config) {
+const resolveSitemap = (config) => {
     const sm = config.sitemap;
     return sm instanceof Array ? sm : ((sm && sm.length) ? [sm] : []);
 }
+
+exports.resolveSitemap = resolveSitemap;
 
 exports.resolveText = function (config) {
     const rules = createRules(config);
@@ -77,7 +79,8 @@ function writePlainRobotsTxt(data) {
         result += writeRule(rule) + "\n";
     });
     if (data.sitemap) {
-        result += `Sitemap: ${data.sitemap}\n`;
+        const siteMap = resolveSitemap(data);
+        result += siteMap.map((s) => `Sitemap: ${s}\n`).join('');
     }
     return result;
 }
