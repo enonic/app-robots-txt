@@ -19,6 +19,7 @@ exports.extensions = function (graphQL) {
                 text: resolvers.RobotsTxtType_text_Resolver,
                 rules: resolvers.RobotsTxtType_rules_Resolver,
                 sitemap: resolvers.RobotsTxtType_sitemap_Resolver,
+                cachecontrol: resolvers.RobotsTxtType_cachecontrol_Resolver,
             }
         },
     }

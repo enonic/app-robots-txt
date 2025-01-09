@@ -18,6 +18,10 @@ Be sure to check out [how robots.txt works](https://en.wikipedia.org/wiki/Robots
 
 > **TIP:** Supplying `application/json` value in `accept` header will return the data as json.
 
+## Cache-Control
+
+If you want robots.txt to be cached, you can set the cache time in the app config via Content Studio UI. Make sure to use values supported by the [Cache-Control header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
+
 ### Headless
 
 Headless sites can use [Headless API](https://market.enonic.com/vendors/enonic/guillotine) to get the data for `robots.txt` file as JSON.
@@ -34,6 +38,7 @@ query {
                 disallow
             }
             sitemap
+            cachecontrol
         }
     }
 }
