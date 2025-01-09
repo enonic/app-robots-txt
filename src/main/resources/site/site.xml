@@ -25,6 +25,11 @@
             <label>Sitemap url</label>
             <occurrences minimum="0" maximum="0"/>
         </input>
+        <input name="cacheControl" type="TextLine">
+            <label>Cache-Control header</label>
+            <occurrences minimum="0" maximum="1"/>
+            <help-text>Cache-Control header value, for example 'max-age=10800' or 'no-cache'</help-text>
+        </input>
     </form>
     <mappings>
         <mapping controller="/lib/robotstxt.js" order="12">

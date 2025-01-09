@@ -16,6 +16,10 @@ const resolveSitemap = (config) => {
     return sm instanceof Array ? sm : ((sm && sm.length) ? [sm] : []);
 }
 
+exports.resolveCacheControl = (config) => {
+    return config.cacheControl;
+}
+
 exports.resolveSitemap = resolveSitemap;
 
 exports.resolveText = function (config) {

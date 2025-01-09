@@ -11,6 +11,9 @@ exports.createRobotsTextType = function (graphQL) {
             sitemap: {
                 type: graphQL.list(graphQL.GraphQLString),
             },
+            cachecontrol: {
+                type: graphQL.GraphQLString,
+            }
         }
     };
 };

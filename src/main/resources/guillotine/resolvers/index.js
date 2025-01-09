@@ -13,6 +13,10 @@ exports.RobotsTxtType_sitemap_Resolver = function (env) {
     return robotsLib.resolveSitemap(env.source._config);
 };
 
+exports.RobotsTxtType_cachecontrol_Resolver = function (env) {
+    return robotsLib.resolveCacheControl(env.source._config);
+};
+
 exports.HeadlessCmsType_robotstxt_Resolver = function (env) {
     const sourceConfig = robotsLib.resolveSourceConfig(env.localContext.project, env.localContext.branch, env.localContext.siteKey);
 
