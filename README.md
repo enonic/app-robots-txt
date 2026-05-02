@@ -36,6 +36,7 @@ query {
                 userAgent
                 allow
                 disallow
+                crawlDelay
             }
             sitemap
             cachecontrol
