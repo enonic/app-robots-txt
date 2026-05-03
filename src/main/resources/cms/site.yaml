@@ -1,0 +1,5 @@
+kind: "Site"
+mappings:
+  - controller: "/lib/robotstxt.js"
+    order: 12
+    pattern: "/robots\\.txt"

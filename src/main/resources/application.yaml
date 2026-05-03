@@ -1,0 +1,5 @@
+kind: "Application"
+title: "Robots.txt"
+description: "Creates the file robots.txt on your site, editable from admin"
+vendorName: "Enonic AS"
+vendorUrl: "https://enonic.com"
