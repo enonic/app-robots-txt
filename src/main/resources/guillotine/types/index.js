@@ -30,6 +30,9 @@ exports.createRobotsRuleType = function (graphQL) {
             },
             disallow: {
                 type: graphQL.list(graphQL.GraphQLString),
+            },
+            crawlDelay: {
+                type: graphQL.GraphQLInt,
             }
         }
     };
