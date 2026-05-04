@@ -52,11 +52,29 @@ exports.resolveSourceConfig = function (project, branch, siteKey) {
 };
 
 function createRule(group) {
-    return {
+    const rule = {
         userAgent: utilLib.forceArray(group.userAgent) || DEFAULT_RULE.userAgent,
         allow: utilLib.forceArray(group.allow),
         disallow: utilLib.forceArray(group.disallow)
     };
+
+    const crawlDelay = parseCrawlDelay(group.crawlDelay);
+    if (crawlDelay !== null) {
+        rule.crawlDelay = crawlDelay;
+    }
+
+    return rule;
+}
+
+function parseCrawlDelay(value) {
+    if (value === null || value === undefined || value === '') {
+        return null;
+    }
+    const num = Number(value);
+    if (!isFinite(num) || num <= 0) {
+        return null;
+    }
+    return Math.floor(num);
 }
 
 function writeRule(rule) {
@@ -65,6 +83,10 @@ function writeRule(rule) {
     utilLib.forceArray(rule.userAgent).forEach(function (userAgent) {
         result += `User-agent: ${userAgent}\n`;
     });
+
+    if (rule.crawlDelay !== null && rule.crawlDelay !== undefined) {
+        result += `Crawl-delay: ${rule.crawlDelay}\n`;
+    }
 
     utilLib.forceArray(rule.allow).forEach(function (allow) {
         result += `Allow: ${allow}\n`;

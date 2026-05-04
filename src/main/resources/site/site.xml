@@ -19,6 +19,15 @@
                     <occurrences minimum="0" maximum="0" />
                     <default> </default>
                 </input>
+                <input name="crawlDelay" type="Long">
+                    <label>Crawl-delay</label>
+                    <occurrences minimum="0" maximum="1"/>
+                    <config>
+                        <min>0</min>
+                        <max>86400</max>
+                    </config>
+                    <help-text>Optional crawl delay in seconds for this user-agent</help-text>
+                </input>
             </items>
         </item-set>
         <input name="sitemap" type="TextLine">
