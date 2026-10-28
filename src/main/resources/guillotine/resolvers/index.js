@@ -18,7 +18,7 @@ exports.RobotsTxtType_cachecontrol_Resolver = function (env) {
 };
 
 exports.HeadlessCmsType_robotstxt_Resolver = function (env) {
-    const sourceConfig = robotsLib.resolveSourceConfig(env.localContext.project, env.localContext.branch, env.localContext.siteKey);
+    const sourceConfig = robotsLib.resolveSourceConfig(env.localContext.project, env.localContext.branch, env.localContext.scopeKey);
 
     if (isRobotsTxtAppNotInstalled(sourceConfig)) {
         return null;
