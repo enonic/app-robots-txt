@@ -27,19 +27,11 @@ exports.resolveText = function (config) {
     return writePlainRobotsTxt(rules);
 }
 
-exports.resolveSourceConfig = function (project, branch, siteKey) {
+exports.resolveSourceConfig = function (project, branch, scopeKey) {
     return ctxLib.executeInContext(project, branch, function () {
-        if (siteKey === undefined) {
-            const projectEntity = projectLib.get({
-                id: project,
-            });
-
-            if (projectEntity) {
-                return projectEntity.siteConfig;
-            }
-        } else {
+        if (scopeKey != null && scopeKey !== '/') {
             const site = contentLib.getSite({
-                key: siteKey,
+                key: scopeKey,
             });
 
             if (site) {
@@ -47,7 +39,11 @@ exports.resolveSourceConfig = function (project, branch, siteKey) {
             }
         }
 
-        return {};
+        const projectEntity = projectLib.get({
+            id: project,
+        });
+
+        return projectEntity ? projectEntity.siteConfig : {};
     });
 };
 
