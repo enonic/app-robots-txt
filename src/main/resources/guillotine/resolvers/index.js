@@ -18,25 +18,21 @@ exports.RobotsTxtType_cachecontrol_Resolver = function (env) {
 };
 
 exports.HeadlessCmsType_robotstxt_Resolver = function (env) {
-    const sourceConfig = robotsLib.resolveSourceConfig(env.localContext.project, env.localContext.branch, env.localContext.scopeKey);
+    const scopeKey = env.localContext.scopeKey != null ? env.localContext.scopeKey : env.localContext.siteKey;
+    const sourceConfig = robotsLib.resolveSourceConfig(env.localContext.project, env.localContext.branch, scopeKey);
 
-    if (isRobotsTxtAppNotInstalled(sourceConfig)) {
+    const appConfig = getAppConfig(sourceConfig);
+    if (!appConfig) {
         return null;
     }
 
     return {
-        _config: getAppConfig(sourceConfig),
+        _config: appConfig,
     };
 };
 
-function getAppConfig(config) {
-    return findAppConfigs(config)[0].config;
-}
-
-function isRobotsTxtAppNotInstalled(config) {
-    return findAppConfigs(config).length === 0;
-}
-
-function findAppConfigs(config) {
-    return utilLib.forceArray(config).filter(cfg => cfg && cfg.applicationKey === 'com.enonic.app.robotstxt');
+function getAppConfig(sourceConfig) {
+    const appConfig = utilLib.forceArray(sourceConfig)
+        .filter(config => config && config.applicationKey === app.name)[0];
+    return appConfig && appConfig.config;
 }
